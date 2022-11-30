@@ -21,7 +21,7 @@ class MongoDatabase {
   /// We will create a new service that will contains our methods that makes calls to the Database
   exampleInsert() async {
     // Here we get our getter defined above
-    getDb.collection(DbEnum.usersCollection.value).insert({"username": "Pablo", "password": "Loupio"});
+    getDb.collection(DbEnum.usersCollection.value).insert({"username": "sfsdf", "password": "azeaz"});
   }
 
 }
