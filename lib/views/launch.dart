@@ -4,10 +4,9 @@ import 'login.dart';
 
 class LaunchPage extends StatefulWidget {
   final String title;
-  static const tag = "/";
+  // static const tag = "/";
 
   const LaunchPage({Key? key, required this.title}): super(key: key);
-
 
   @override
   LaunchPageState createState() => LaunchPageState();
@@ -58,17 +57,21 @@ class LaunchPageState extends State<LaunchPage> {
                       child: Text("We are fully approved by the Horse Society as professionnal riding school", style: TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.4), fontWeight: FontWeight.w500)),
                     ),
                     Align(
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("Rejoinez-nous"),
-                          Container(
-                            width: 100,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text(">>>"),
-                            ),
-                          )
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, RegisterPage.tag);
+                            },
+                            child: const Text('Inscription'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, LoginPage.tag);
+                            },
+                            child: const Text('Connexion'),
+                          ),
                         ],
                       ),
                     )

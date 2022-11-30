@@ -4,9 +4,7 @@ import 'package:my_horse/views/launch.dart';
 import 'package:my_horse/views/login.dart';
 import 'package:my_horse/views/register.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await MongoDatabase.connect();
+void main() async {
   runApp(const MyApp());
 }
 

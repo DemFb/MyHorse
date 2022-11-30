@@ -3,7 +3,7 @@
 /// This Enum Contains our database URL and for each collection
 /// We create a new field and pass the collection name as parameter
 enum DbEnum {
-  dbUrl("mongodb+srv://horse:horse@cluster0.qwtugl3.mongodb.net/horse?retryWrites=true&w=majority"),
+  dbUrl("mongodb+srv://horse:horse@cluster0.qwtugl3.mongodb.net/horse?retryWrites=true&w=majority&ssl=true"),
   usersCollection("users");
 
   const DbEnum(this.value);

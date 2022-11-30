@@ -21,17 +21,6 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 30),
-            ElevatedButton(
-              style: style,
-              onPressed: () {},
-              child: const Text('Connexion'),
-            ),
-            ElevatedButton(
-              style: style,
-              onPressed: () {},
-              child: const Text('inscription'),
-            ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.

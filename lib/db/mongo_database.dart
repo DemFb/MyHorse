@@ -16,12 +16,4 @@ class MongoDatabase {
     _db = db;
     return _db;
   }
-
-  /// This is a simple exemple of Insert, but for each features
-  /// We will create a new service that will contains our methods that makes calls to the Database
-  exampleInsert() async {
-    // Here we get our getter defined above
-    getDb.collection(DbEnum.usersCollection.value).insert({"username": "sfsdf", "password": "azeaz"});
-  }
-
 }
