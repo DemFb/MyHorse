@@ -10,7 +10,7 @@ class CourseModel {
   final String fromHour;
   // Course end hour
   final String? toHour;
-  final String duration;
+  final int duration;
   final String discipline;
   final String userId;
 

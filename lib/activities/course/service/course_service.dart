@@ -18,13 +18,15 @@ class CourseService {
     late CourseModel response;
 
     if (dateRegex.hasMatch(courseData["date"]) && hourRegex.hasMatch(courseData["fromHour"])) {
-        WriteResult result = await MongoDatabase.getDb.collection(courseCollection).insertOne(courseData);
-        response = CourseModel(
-            trainingGround: result.document!["trainingGround"] as String,
-            date: result.document!["date"] as String, duration: result.document!["duration"] as String,
-            discipline: result.document!["discipline"] as String, fromHour: result.document!["fromHour"] as String,
-            userId: result.document!["userId"] as String
-        );
+        if (courseData["duration"] > 0 && courseData["duration"] <= 60) {
+          WriteResult result = await MongoDatabase.getDb.collection(courseCollection).insertOne(courseData);
+          response = CourseModel(
+              trainingGround: result.document!["trainingGround"] as String,
+              date: result.document!["date"] as String, duration: result.document!["duration"] as int,
+              discipline: result.document!["discipline"] as String, fromHour: result.document!["fromHour"] as String,
+              userId: result.document!["userId"] as String
+          );
+        }
     }
     return response;
   }
