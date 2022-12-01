@@ -10,8 +10,13 @@ class UserModel {
   final List<HorseModel>? horses;
   final int? age;
   final int? phoneNumber;
+  final String? salt;
+  final List<String> roles;
 
 
-  const UserModel({required this.username, required this.password, required this.email, required this.photoUrl, this.id, this.horses, this.age, this.phoneNumber});
+  const UserModel({
+        required this.username, required this.password, required this.email,
+        required this.photoUrl, required this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber
+      });
 
 }

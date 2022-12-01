@@ -4,7 +4,8 @@
 /// We create a new field and pass the collection name as parameter
 enum DbEnum {
   dbUrl("mongodb+srv://horse:horse@cluster0.qwtugl3.mongodb.net/horse?retryWrites=true&w=majority&ssl=true"),
-  usersCollection("users");
+  usersCollection("users"),
+  horseCollection("horses");
 
   const DbEnum(this.value);
 

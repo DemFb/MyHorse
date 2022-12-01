@@ -24,14 +24,14 @@ class LaunchPageState extends State<LaunchPage> {
       width: size.width,
       height: size.height,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/pages/launch/adrobski-pGuAgo_o2r8-unsplash.jpg"),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.3),
-              BlendMode.darken
+          image: DecorationImage(
+              image: AssetImage("assets/images/pages/launch/adrobski-pGuAgo_o2r8-unsplash.jpg"),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.3),
+                  BlendMode.darken
+              )
           )
-        )
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -45,8 +45,8 @@ class LaunchPageState extends State<LaunchPage> {
                 height: 200,
                 padding: const EdgeInsets.only(top: 20, bottom: 10, right: 15, left: 15),
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.4),
-                  borderRadius: const BorderRadius.all(Radius.circular(15))
+                    color: Colors.grey.withOpacity(0.4),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
