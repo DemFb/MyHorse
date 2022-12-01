@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
- // static const tag = "/";
+  static const tag = "/home";
   @override
   State<HomePage> createState() => _HomePageState();
 }

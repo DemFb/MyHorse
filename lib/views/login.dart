@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_horse/authentication/auth_service.dart';
+import 'package:my_horse/views/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   static const tag = "/login";
@@ -9,6 +12,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+
+  final AuthService _authService = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Future<SharedPreferences> _sharedPreferences =  SharedPreferences.getInstance();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  _formSubmit({required GlobalKey<FormState> formKey}) {
+    if (formKey.currentState!.validate()) {
+      _authService.login(data: {"email": _emailController.text, "password": _passwordController.text})
+        .then((value) async {
+          SharedPreferences _prefs = await _sharedPreferences;
+          String? token = _prefs.getString("token");
+          if (token != null) {
+            Navigator.pushNamed(context, HomePage.tag, arguments: token);
+          }
+      });
+    }
+  }
+
+  String? _formFieldValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Veuillez remplir ce champ";
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +63,55 @@ class LoginPageState extends State<LoginPage> {
                     child: Image.asset('assets/images/pages/launch/horse_logo.jpeg')),
               ),
             ),
-            const Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Nom d'utilisateur",
-                    hintText: "Entrerz votre nom d'utilisateur"),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: TextFormField(
+                      controller: _emailController,
+                      validator: _formFieldValidator,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Email",
+                        hintText: "Entrez votre email"
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
+                    //padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: TextFormField(
+                      obscureText: true,
+                      controller: _passwordController,
+                      validator: _formFieldValidator,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Mot de passe',
+                        hintText: 'Entrez votre mot de passe'
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 250,
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _formSubmit(formKey: _formKey);
+                      },
+                      child: const Text(
+                        'Connexion',
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    //),
+                  ),
+                ],
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
-                    hintText: 'Entrez votre mot de passe'),
-              ),
-            ),
-            TextButton(
-              onPressed: (){
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
-              },
-              child: const Text(
-                'Mot de passe oublié',
-                style: TextStyle(color: Color(0xffff8a65), fontSize: 15),
-              ),
-            ),
-            Container(
-              height: 50,
-              width: 250,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: const Color(0xffff8a65), borderRadius: BorderRadius.circular(20)),
-              //child: TextButton(
-                //onPressed: () {
-                 // Navigator.push(
-                  //    context, MaterialPageRoute(builder: (_) => HomePage()));
-               // },
-                child: const Text(
-                  'Connexion',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-              //),
-            ),
-            const SizedBox(
-              height: 130,
             ),
             const Text('Nouvel utilisateur? Créer un compte')
           ],

@@ -37,7 +37,7 @@ class AuthService {
     SharedPreferences prefs = await _sharedPreferences;
 
     if (passwordHashed == value["password"]) {
-      String token = security.encrypt(value: {"username": value["username"], "email": value["email"]});
+      String token = security.encrypt(value: {"username": value["username"], "email": value["email"], "id": (value["_id"] as ObjectId).$oid});
       prefs.setString("token", token);
     }
 

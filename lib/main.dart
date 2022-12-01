@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 
       routes: {
         LaunchPage.tag: (context) => const LaunchPage(title: "Bienvenue dans my horse"),
-        // HomePage.tag: (context) => const HomePage(),
+        HomePage.tag: (context) => const HomePage(),
         LoginPage.tag: (context) => const LoginPage(),
         RegisterPage.tag: (context) => const RegisterPage(),
       },
