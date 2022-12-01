@@ -7,8 +7,8 @@ import 'package:my_horse/views/home.dart';
 
 
 Future<void> main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await MongoDatabase.connect();
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 
