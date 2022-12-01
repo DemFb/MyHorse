@@ -17,13 +17,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'Named Routes Demo',
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
+    //  initialRoute: LaunchPage.tag,
       initialRoute: LaunchPage.tag,
+
       routes: {
-        LaunchPage.tag: (context) => const LaunchPage(title: "Bienvenue dans my horse"),
+        //LaunchPage.tag: (context) => const LaunchPage(title: "Bienvenue dans my horse"),
+
+        HomePage.tag: (context) => const HomePage(),
         LoginPage.tag: (context) => const LoginPage(),
         RegisterPage.tag: (context) => const RegisterPage(),
       },
