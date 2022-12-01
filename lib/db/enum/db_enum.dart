@@ -7,7 +7,8 @@ enum DbEnum {
   usersCollection("users"),
   horseCollection("horses"),
   courseCollection("courses"),
-  competitionCollection("competitions");
+  competitionCollection("competitions"),
+  partyCollection("parties");
 
   const DbEnum(this.value);
 
