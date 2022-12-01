@@ -4,4 +4,12 @@ class ParticipantModel {
   final String level;
 
   const ParticipantModel({required this.userId, required this.level});
+
+  Map<String, dynamic> toMap() {
+    return {
+      "userId": userId,
+      "level": level
+    };
+  }
+
 }

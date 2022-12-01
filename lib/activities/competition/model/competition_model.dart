@@ -5,7 +5,7 @@ class CompetitionModel {
   final String address;
   final String photoUrl;
   final String date;
-  final List<ParticipantModel>? participants;
+  final List<dynamic>? participants;
   final String creatorId;
 
   const CompetitionModel({required this.name, required this.address, required this.photoUrl, required this.date, required this.creatorId, this.participants});
