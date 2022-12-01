@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
       title: 'Named Routes Demo',
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
-    //  initialRoute: LaunchPage.tag,
       initialRoute: LaunchPage.tag,
+      //initialRoute: HomePage.tag,
 
       routes: {
-        //LaunchPage.tag: (context) => const LaunchPage(title: "Bienvenue dans my horse"),
-        HomePage.tag: (context) => const HomePage(),
+        LaunchPage.tag: (context) => const LaunchPage(title: "Bienvenue dans my horse"),
+        // HomePage.tag: (context) => const HomePage(),
         LoginPage.tag: (context) => const LoginPage(),
         RegisterPage.tag: (context) => const RegisterPage(),
       },

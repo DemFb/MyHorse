@@ -4,7 +4,7 @@ import 'login.dart';
 
 class LaunchPage extends StatefulWidget {
   final String title;
- // static const tag = "/";
+  static const tag = "/";
 
   const LaunchPage({Key? key, required this.title}): super(key: key);
 
