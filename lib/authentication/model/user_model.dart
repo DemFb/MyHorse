@@ -20,4 +20,14 @@ class UserModel {
         required this.photoUrl, required this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber, this.linkFFE
       });
 
+  Map<String, dynamic> toMap() {
+    return {
+      "username": username,
+      "password": password,
+      "email": email,
+      "photoUrl": photoUrl,
+      "roles": roles
+    };
+  }
+
 }
