@@ -92,7 +92,7 @@ class HorseService {
 
   /// Retrieve horse By ownerId
   Future<Map<String, dynamic>?> _getHorseByOwnerId({required String ownerId}) async {
-    return await MongoDatabase.getDb.collection(horseCollection).findOne(where.eq("ownerId", ownerId));
+    return await MongoDatabase.getDb?.collection(horseCollection).findOne(where.eq("ownerId", ownerId));
   }
 
   /// Retreive horse by horse Id
