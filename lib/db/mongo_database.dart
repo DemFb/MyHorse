@@ -12,8 +12,7 @@ class MongoDatabase {
   // Connection to the Database
   static Future<void> connect() async {
     Db db = await Db.create(DbEnum.dbUrl.value);
-    await db.open();
-    _db = db;
+
   }
 
   /// Retrieve a User
