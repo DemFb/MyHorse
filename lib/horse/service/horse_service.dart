@@ -1,4 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:my_horse/extension/async_map.dart';
 import 'package:my_horse/horse/model/horse_model.dart';
 
 import '../../db/enum/db_enum.dart';
@@ -30,7 +31,7 @@ class HorseService {
 
   /// Add a Demi pension to a Horse
   Future<HorseModel?> addHorseDemiPension({required String userId, required String horseId}) async {
-    final Map<String, dynamic>? horse = await _getHorsebyOwnerId(ownerId: userId);
+    final Map<String, dynamic>? horse = await _getHorseByOwnerId(ownerId: userId);
 
     if (horse != null) {
       return null;
@@ -46,13 +47,7 @@ class HorseService {
       );
 
       if (updateHorse.nModified == 1) {
-        final Map<String, dynamic>? getUpdatedHorse = await _getHorseByHorseId(horseId: horseId);
-        response = HorseModel(
-            photoUrl: getUpdatedHorse!["photoUrl"] as String, name: getUpdatedHorse["name"] as String,
-            age: getUpdatedHorse["age"] as int, robe: getUpdatedHorse["robe"] as String, race: getUpdatedHorse["race"] as String, gender: getUpdatedHorse["gender"] as String,
-            speciality: getUpdatedHorse["speciality"] as String, ownerId:  getUpdatedHorse["ownerId"] as String, id: (getUpdatedHorse["_id"] as ObjectId).$oid,
-            demiPensionId: getUpdatedHorse["demiPensionId"]
-        );
+        response = await _horseResultModel(horseId: horseId);
       }
 
     }
@@ -60,14 +55,59 @@ class HorseService {
     return response;
   }
 
+  /// Update horse data
+  Future<HorseModel?> updateHorse({required String ownerId, required String horseId, required Map<String, dynamic> horseData}) async {
+
+    final Map<String, dynamic>? ownerHorse = await _getHorseByOwnerId(ownerId: ownerId);
+
+    if (ownerHorse == null) {
+      return null;
+    }
+
+    late HorseModel response;
+    int countMultipleFieldsUpdate = 0;
+
+    if (horseData.length > 1) {
+      /// Multiple fields update
+      await horseData.forEachAsync((key, value) async {
+        await MongoDatabase.getDb.collection(horseCollection)
+            .updateOne(where.eq("_id", ObjectId.fromHexString(horseId)), ModifierBuilder().set(key, value)
+        );
+        countMultipleFieldsUpdate++;
+      });
+
+      if (countMultipleFieldsUpdate == horseData.length) {
+        response = await _horseResultModel(horseId: horseId);
+      }
+
+    } else {
+      await MongoDatabase.getDb.collection(horseCollection)
+          .updateOne(where.eq("_id", ObjectId.fromHexString(horseId)), ModifierBuilder().set(horseData.keys.first, horseData.values.first)
+      );
+      response = await _horseResultModel(horseId: horseId);
+    }
+
+    return response;
+  }
+
   /// Retrieve horse By ownerId
-  Future<Map<String, dynamic>?> _getHorsebyOwnerId({required String ownerId}) async {
+  Future<Map<String, dynamic>?> _getHorseByOwnerId({required String ownerId}) async {
     return await MongoDatabase.getDb.collection(horseCollection).findOne(where.eq("ownerId", ownerId));
   }
 
   /// Retreive horse by horse Id
   Future<Map<String, dynamic>?> _getHorseByHorseId({required String horseId}) async {
     return await MongoDatabase.getDb.collection(horseCollection).findOne(where.eq("_id", ObjectId.fromHexString(horseId)));
+  }
+
+  Future<HorseModel> _horseResultModel({required String horseId}) async {
+    final Map<String, dynamic>? getUpdatedHorse = await _getHorseByHorseId(horseId: horseId);
+    return HorseModel(
+        photoUrl: getUpdatedHorse!["photoUrl"] as String, name: getUpdatedHorse["name"] as String,
+        age: getUpdatedHorse["age"] as int, robe: getUpdatedHorse["robe"] as String, race: getUpdatedHorse["race"] as String, gender: getUpdatedHorse["gender"] as String,
+        speciality: getUpdatedHorse["speciality"] as String, ownerId:  getUpdatedHorse["ownerId"] as String, id: (getUpdatedHorse["_id"] as ObjectId).$oid,
+        demiPensionId: getUpdatedHorse["demiPensionId"]
+    );
   }
 
 }
