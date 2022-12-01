@@ -9,7 +9,7 @@ class HorseService {
   /// Create a new Horse
   Future<HorseModel?> createHorse({required Map<String, dynamic> horseData}) async {
 
-    final Map<String, dynamic>? user = await MongoDatabase.getDb.collection(DbEnum.usersCollection.value).findOne(where.eq("_id", ObjectId.fromHexString(horseData["ownerId"])));
+    final Map<String, dynamic>? user = await MongoDatabase.getUser(userId: horseData["ownerId"], excludeFields: ["password", "email", "salt", "photoUrl"]);
     late HorseModel? response;
 
     if (user != null) {
@@ -24,6 +24,11 @@ class HorseService {
       }
     }
     return response;
+  }
+
+  /// Add a Demi pension to a Horse
+  Future<void> addHorseDemiPension({required String userId}) async {
+
   }
 
 }

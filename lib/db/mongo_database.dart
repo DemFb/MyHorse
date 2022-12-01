@@ -16,4 +16,11 @@ class MongoDatabase {
     _db = db;
   }
 
+  /// Retrieve a User
+  /// If " excludesFields " the specified fields will not be retrieved
+  /// eg : excludeFields["password", "email"], those two fields will not be retrieved
+  static Future<Map<String, dynamic>?> getUser({required String userId, List<String>? excludeFields}) async {
+    return await getDb.collection(DbEnum.usersCollection.value).findOne(where.eq("_id", ObjectId.fromHexString(userId)).excludeFields(excludeFields!));
+  }
+
 }
