@@ -5,7 +5,8 @@
 enum DbEnum {
   dbUrl("mongodb+srv://horse:horse@cluster0.qwtugl3.mongodb.net/horse?retryWrites=true&w=majority"),
   usersCollection("users"),
-  horseCollection("horses");
+  horseCollection("horses"),
+  courseCollection("courses");
 
   const DbEnum(this.value);
 
