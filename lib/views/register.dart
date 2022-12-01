@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
               width: 150,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: const Color(0xffff8a65), borderRadius: BorderRadius.circular(15)),
+                  color: const Color(0xffff8a65).withOpacity(0.8), borderRadius: BorderRadius.circular(15)),
               //child: TextButton(
               //onPressed: () {
               // Navigator.push(
