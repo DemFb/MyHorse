@@ -1,18 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_horse/activities/competition/model/competition_model.dart';
-import 'package:my_horse/activities/competition/model/participant_model.dart';
-import 'package:my_horse/activities/competition/service/competition_service.dart';
-import 'package:my_horse/activities/course/model/course_model.dart';
-import 'package:my_horse/activities/course/service/course_service.dart';
-import 'package:my_horse/authentication/auth_service.dart';
-import 'package:my_horse/authentication/model/user_model.dart';
-import 'package:my_horse/db/mongo_database.dart';
-import 'package:my_horse/enum/competition_level.dart';
-import 'package:my_horse/enum/training_discipline.dart';
-import 'package:my_horse/enum/training_ground.dart';
-import 'package:my_horse/horse/model/horse_model.dart';
-import 'package:my_horse/horse/service/horse_service.dart';
+import 'package:my_horse/views/home.dart';
 import 'package:my_horse/views/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -26,18 +15,21 @@ class LaunchPage extends StatefulWidget {
 }
 
 class LaunchPageState extends State<LaunchPage> {
+  final Future<SharedPreferences> _sharepreferences = SharedPreferences.getInstance();
+
+  Future<void> _checkIfUserIsAlreadyConnected() async {
+    SharedPreferences prefs = await _sharepreferences;
+    String? token = prefs.getString("token");
+
+    if (token != null) {
+      Navigator.pushNamed(context, HomePage.tag, arguments: token);
+    }
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //AuthService().login(data: {"password": "toto", "email": "yoshimura@email.email"});
-    //HorseService().createHorse(horseData: HorseModel(photoUrl: "azaz", name: "azaza", age: 10, robe: "ezez", race: "fefs", gender: "ssfsf", speciality: "sfsf", ownerId: "6387a615563b9d5b96bd8e17").toMap());
-    //HorseService().updateHorse(ownerId: "6387a615563b9d5b96bd8e17", horseId: "63885c1360a9b2347bae9e46", horseData: {"age": 30, "robe": "rouge"});
-    //6387a615563b9d5b96bd8e17
-    //CourseService().createCourse(courseData: CourseModel(userId: "6387a615563b9d5b96bd8e17", trainingGround: TrainingGround.career.value, date: "16/02/2023", duration: 30, discipline: TrainingDiscipline.endurance.value, fromHour: "10:30").toMap());`
-    CompetitionService()
-        .addParticipantToCompetition(competitionId: "6388c93e331a51959959b20b", participant: ParticipantModel(userId: "63877ab28bbcb10a589dee16", level: CompetitionLevel.club1.value).toMap());
+    _checkIfUserIsAlreadyConnected();
   }
 
   @override
