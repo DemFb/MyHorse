@@ -12,11 +12,12 @@ class UserModel {
   final int? phoneNumber;
   final String? salt;
   final List<String> roles;
+  final String? linkFFE;
 
 
   const UserModel({
         required this.username, required this.password, required this.email,
-        required this.photoUrl, required this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber
+        required this.photoUrl, required this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber, this.linkFFE
       });
 
 }
