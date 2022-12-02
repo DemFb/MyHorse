@@ -31,4 +31,21 @@ class CourseService {
     return response;
   }
 
+  Future<List<CourseModel>> getAllCourses() async {
+
+    List<CourseModel> courses = [];
+    List<Map<String, dynamic>> result = await MongoDatabase.getDb.collection(courseCollection).find().toList();
+
+    for (Map<String, dynamic> element in result) {
+      print(element["trainingGround"]);
+      courses.add(CourseModel(
+          trainingGround: element["trainingGround"], date: element["date"],
+          duration: int.parse(element["duration"]), discipline: element["discipline"],
+          fromHour: element["fromHour"], userId: element["userId"], id: (element["_id"] as ObjectId).$oid));
+    }
+
+    print(courses);
+    return courses;
+  }
+
 }

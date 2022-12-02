@@ -3,6 +3,7 @@ import 'package:my_horse/enum/training_ground.dart';
 
 class CourseModel {
 
+  final String? id;
   final String trainingGround;
   // only dd/mm/yyyy format accepted
   final String date;
@@ -18,7 +19,7 @@ class CourseModel {
     required this.trainingGround,
     required this.date, required this.duration,
     required this.discipline,
-    required this.fromHour, required this.userId, this.toHour
+    required this.fromHour, required this.userId, this.toHour, this.id
   });
 
   Map<String, dynamic> toMap() {
