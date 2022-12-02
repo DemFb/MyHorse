@@ -66,4 +66,18 @@ class CompetitionService {
     return await MongoDatabase.getDb.collection(competitionCollection).findOne(where.eq("_id", ObjectId.fromHexString(competitionId)));
   }
 
+  Future<List<CompetitionModel>> getCompetitionRaces() async {
+    List<CompetitionModel> competitions = [];
+    List<Map<String, dynamic>> result = await MongoDatabase.getDb.collection(competitionCollection).find().toList();
+
+    for (Map<String, dynamic> element in result) {
+      competitions.add(
+        CompetitionModel(
+            name: element["name"], address: element["address"],
+            photoUrl: element["photoUrl"], date: element["date"], creatorId: element["creatorId"], id: (element["_id"] as ObjectId).$oid)
+      );
+    }
+    return competitions;
+  }
+
 }

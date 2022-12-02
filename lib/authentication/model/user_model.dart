@@ -11,13 +11,13 @@ class UserModel {
   final int? age;
   final int? phoneNumber;
   final String? salt;
-  final List<String> roles;
+  final List<String>? roles;
   final String? linkFFE;
 
 
   const UserModel({
         required this.username, required this.password, required this.email,
-        required this.photoUrl, required this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber, this.linkFFE
+        required this.photoUrl, this.roles, this.salt, this.id, this.horses, this.age, this.phoneNumber, this.linkFFE
       });
 
   Map<String, dynamic> toMap() {

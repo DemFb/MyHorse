@@ -1,6 +1,8 @@
 import 'package:my_horse/activities/competition/model/participant_model.dart';
 
 class CompetitionModel {
+
+  final String? id;
   final String name;
   final String address;
   final String photoUrl;
@@ -8,7 +10,7 @@ class CompetitionModel {
   final List<dynamic>? participants;
   final String creatorId;
 
-  const CompetitionModel({required this.name, required this.address, required this.photoUrl, required this.date, required this.creatorId, this.participants});
+  const CompetitionModel({required this.name, required this.address, required this.photoUrl, required this.date, required this.creatorId, this.participants, this.id});
 
   Map<String, dynamic> toMap() {
     return {

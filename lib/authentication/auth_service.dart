@@ -1,4 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:my_horse/authentication/model/user_model.dart';
 import 'package:my_horse/db/enum/db_enum.dart';
 import 'package:my_horse/db/mongo_database.dart';
 import 'package:my_horse/security/security.dart';
@@ -41,6 +42,22 @@ class AuthService {
       prefs.setString("token", token);
     }
 
+  }
+
+  Future<List<UserModel>> getUsers() async {
+    List<UserModel> users = [];
+    List<Map<String, dynamic>> result = await MongoDatabase.getDb.collection(DbEnum.usersCollection.value).find().toList();
+
+    for (Map<String, dynamic> element in result) {
+      print(element);
+      users.add(
+        UserModel(username: element["username"], password: element["password"],
+            email: element["email"], photoUrl: element["photoUrl"], roles: element["roles"], id: (element["_id"] as ObjectId).$oid
+        )
+      );
+    }
+    print(users);
+    return users;
   }
 
 }
