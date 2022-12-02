@@ -42,6 +42,7 @@ dependencies:
   shared_preferences: ^2.0.15
   objectid: ^2.1.0
   image_picker: ^0.8.6
+  modal_bottom_sheet: ^2.1.2
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:my_horse/widgets/notification/notification_club.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
 
@@ -13,7 +15,19 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget{
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
       elevation: 0.0,
-      leading: const Icon(Icons.notifications, color: Colors.black,),
+      leading: GestureDetector(
+        child: const Icon(Icons.notifications, color: Colors.black,),
+        onTap: () {
+          showBarModalBottomSheet(
+            expand: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            enableDrag: false,
+            isDismissible: true,
+            builder: (_) => const NotificationClub()
+          );
+        },
+      ),
       title: const Text("Club de cheval.", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Color(0xFFDA5C44)),),
       actions: [
         Padding(
